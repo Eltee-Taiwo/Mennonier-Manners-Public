@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="TaiwoTech.MennoniteManners.App.Pages.Popups.GameSettingsPopup"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    Color="Transparent">
+    <Border
+        Padding="15"
+        BackgroundColor="#d3d3d3"
+        StrokeThickness="5">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20" />
+        </Border.StrokeShape>
+        <Border.Stroke>
+            <SolidColorBrush Color="Black" />
+        </Border.Stroke>
+        <Grid
+            Padding="5"
+            BackgroundColor="Transparent"
+            RowSpacing="5">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="6*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center"
+                Spacing="10">
+                <Label
+                    x:Name="Title"
+                    Style="{StaticResource PopupTitleLabel}"
+                    Text="Settings" />
+            </VerticalStackLayout>
+            <Grid
+                x:Name="SettingsGrid"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                RowSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <!--  region Game Type  -->
+                <Label
+                    x:Name="GameTypePickerLabel"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Style="{StaticResource TitleLabel}"
+                    Text="Game Type: " />
+                <Picker
+                    x:Name="GameTypePicker"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Focused="GameTypePickerFocus"
+                    FontAttributes="Bold"
+                    FontFamily="OPTI"
+                    FontSize="15"
+                    HorizontalTextAlignment="Center"
+                    SelectedIndexChanged="GameTypeSelected"
+                    TextColor="Black"
+                    Unfocused="GameTypePickerUnFocus"
+                    VerticalTextAlignment="Center" />
+                <!--  endregion  -->
+
+                <!--  region Game Length  -->
+                <Label
+                    x:Name="GameLengthLabel"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Style="{StaticResource TitleLabel}"
+                    Text="Game Length:" />
+                <Picker
+                    x:Name="GameLengthPicker"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    BackgroundColor="White"
+                    Focused="GameLengthPickerFocus"
+                    FontAttributes="Bold"
+                    FontFamily="OPTI"
+                    FontSize="15"
+                    HorizontalTextAlignment="Center"
+                    SelectedIndexChanged="GameLengthSelected"
+                    TextColor="Black"
+                    Unfocused="GameLengthPickerUnFocus"
+                    VerticalTextAlignment="Center" />
+                <!--  endregion  -->
+
+                <!--  region Reverse  -->
+                <Label
+                    x:Name="ReverseLabel"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Style="{StaticResource TitleLabel}"
+                    Text="Reverse:" />
+                <CheckBox
+                    x:Name="ReverseCheckBox"
+                    Grid.Row="2"
+                    Grid.Column="1" />
+                <!--  endregion  -->
+            </Grid>
+
+            <BoxView
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,10,0,0"
+                HeightRequest="1"
+                VerticalOptions="Start"
+                Color="Black" />
+            <BoxView
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="0,10,0,0"
+                HorizontalOptions="Start"
+                WidthRequest="1"
+                Color="Black" />
+            <Button
+                x:Name="CancelButton"
+                Grid.Row="2"
+                Grid.Column="0"
+                Clicked="CancelButtonClicked"
+                Style="{StaticResource PopupButton}"
+                Text="Cancel"
+                VerticalOptions="End" />
+            <Button
+                x:Name="SaveButton"
+                Grid.Row="2"
+                Grid.Column="1"
+                Clicked="SaveButtonClicked"
+                Style="{StaticResource PopupButton}"
+                Text="Confirm"
+                VerticalOptions="End" />
+        </Grid>
+    </Border>
+</toolkit:Popup>

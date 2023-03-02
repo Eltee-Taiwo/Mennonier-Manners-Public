@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaiwoTech.MennoniteManners.App.Pages.Game.GamePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TaiwoTech.MennoniteManners.App.Pages.Game"
+    xmlns:views="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="GamePage"
+    x:DataType="local:GamePageViewModel"
+    BackgroundImageSource="paper_background.jpg">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="6*" />
+        </Grid.RowDefinitions>
+
+        <!--  region header bar  -->
+        <StackLayout
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10,0">
+            <Label Style="{StaticResource TitleLabel}" Text="{Binding LastRoller}" />
+            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Style="{StaticResource SubTitleSpan}" Text="Rolled a " />
+                        <Span Style="{StaticResource TitleSpan}" Text="{Binding LastRollResult}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+
+        <StackLayout Grid.Row="0" Grid.Column="1">
+            <Label Style="{StaticResource TitleLabel}" Text="{Binding CurrentWriter}" />
+            <Label HorizontalOptions="Center" HorizontalTextAlignment="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Style="{StaticResource SubTitleSpan}" Text="has had the pen for " />
+                        <Span Style="{StaticResource TitleSpan}" Text="{Binding PenSeconds}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+
+        <StackLayout Grid.Row="0" Grid.Column="2">
+            <Label Style="{StaticResource TitleLabel}" Text="{Binding CurrentRoller}" />
+            <Label
+                HorizontalTextAlignment="Center"
+                Style="{StaticResource ChatHeaderLabel}"
+                Text="has the dice" />
+        </StackLayout>
+
+        <!--  endregion  -->
+
+        <!--  region left bar  -->
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Label
+                x:Name="PencilLabel"
+                IsVisible="{Binding CanDraw}"
+                Style="{StaticResource TitleLabel}"
+                Text="" />
+
+            <Button
+                Grid.Row="1"
+                Command="{Binding ClearDrawingCommand}"
+                FontSize="30"
+                Style="{StaticResource LargeButton}"
+                Text="&lt; Clear &gt;" />
+        </Grid>
+        <!--  endregion  -->
+
+        <!--  region GamePad  -->
+
+
+        <views:DrawingView
+            x:Name="DrawView"
+            Grid.Row="1"
+            Grid.Column="1"
+            BackgroundColor="Transparent"
+            DrawingLineCompletedCommand="{Binding StartedDrawingCommand}"
+            IsMultiLineModeEnabled="True"
+            IsVisible="{Binding CanDraw}"
+            LineWidth="10" />
+
+        <Button
+            x:Name="RollButton"
+            Grid.Row="1"
+            Grid.Column="1"
+            BackgroundColor="Transparent"
+            Command="{Binding RollDiceCommand}"
+            IsEnabled="{Binding CanRoll}"
+            IsVisible="{Binding CanRoll}"
+            Style="{StaticResource LargeButton}"
+            Text="TAP TO ROLL!" />
+
+        <Grid
+            x:Name="HintsGrid"
+            Grid.Row="1"
+            Grid.Column="1"
+            BackgroundColor="Transparent"
+            InputTransparent="True">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4.5*" />
+                <RowDefinition Height="1*" />
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Padding="20"
+                IsVisible="{Binding IsWaiting}"
+                Style="{StaticResource TitleLabel}"
+                Text=" WAIT YOUR TURN"
+                VerticalOptions="End" />
+
+            <Label
+                Grid.Row="1"
+                Padding="20"
+                IsVisible="{Binding CanDraw}"
+                Style="{StaticResource TitleLabel}"
+                Text=" DRAW HERE"
+                VerticalOptions="End" />
+
+            <Label
+                Grid.Row="0"
+                FontFamily="{Binding HintTextFontFamily}"
+                FontSize="80"
+                HorizontalOptions="Center"
+                IsVisible="{Binding CanDraw}"
+                Opacity="0.3"
+                Text="{Binding CurrentHint}"
+                TextColor="Black"
+                TextTransform="Lowercase"
+                VerticalOptions="Center" />
+
+        </Grid>
+        <!--  endregion  -->
+
+        <!--  region right bar  -->
+        <Grid
+            Grid.Row="1"
+            Grid.Column="2"
+            IsVisible="{Binding CanDraw}">
+            <Grid IsVisible="{Binding NextButtonVisible}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding MoveToNextSlideCommand}" />
+                </Grid.GestureRecognizers>
+                <Label
+                    x:Name="NextLabel"
+                    Style="{StaticResource HeaderLabel}"
+                    Text="Next" />
+            </Grid>
+            <Grid IsVisible="{Binding FinishButtonVisible}">
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ValidateResultsCommand}" />
+                </Grid.GestureRecognizers>
+                <Label
+                    x:Name="FinishLabel"
+                    Style="{StaticResource HeaderLabel}"
+                    Text="Done" />
+            </Grid>
+        </Grid>
+        <!--  endregion  -->
+
+        <BoxView
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            HorizontalOptions="End"
+            WidthRequest="5" />
+        <BoxView
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            WidthRequest="5" />
+        <BoxView
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            HeightRequest="5"
+            VerticalOptions="Start" />
+    </Grid>
+</ContentPage>

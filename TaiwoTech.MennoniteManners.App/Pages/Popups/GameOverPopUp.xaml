@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="TaiwoTech.MennoniteManners.App.Pages.Popups.GameOverPopUp"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:TaiwoTech.MennoniteManners.App.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    Color="Transparent">
+    <Border
+        x:Name="Outline"
+        Padding="15"
+        BackgroundColor="#d3d3d3"
+        StrokeThickness="5">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20" />
+        </Border.StrokeShape>
+        <Grid>
+            <Grid
+                x:Name="WaitGrid"
+                Padding="5"
+                BackgroundColor="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
+
+
+                <Label
+                    x:Name="Prompt"
+                    Grid.Row="0"
+                    Style="{StaticResource TitleLabel}" />
+
+                <Label
+                    x:Name="Details"
+                    Grid.Row="1"
+                    Style="{StaticResource SubTitleLabel}" />
+            </Grid>
+
+            <Grid x:Name="ResultsGrid" IsVisible="False">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <StackLayout Grid.Row="0" Spacing="30">
+                    <Grid ColumnDefinitions="*,*,*">
+                        <Label
+                            Grid.Column="0"
+                            Style="{StaticResource TitleLabel}"
+                            Text="Username" />
+                        <Label
+                            Grid.Column="1"
+                            Style="{StaticResource TitleLabel}"
+                            Text="Score" />
+                        <Label
+                            Grid.Column="2"
+                            Style="{StaticResource TitleLabel}"
+                            Text="Pen Time" />
+                    </Grid>
+
+                    <CollectionView x:Name="ResultsCollectionView">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout ItemSpacing="30" Orientation="Vertical" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="models:GameResultDto">
+                                <Grid ColumnDefinitions="*,*,*">
+                                    <Label
+                                        Grid.Column="0"
+                                        Style="{StaticResource SubTitleLabel}"
+                                        Text="{Binding UserName}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Style="{StaticResource SubTitleLabel}"
+                                        Text="{Binding Score}" />
+                                    <Label
+                                        Grid.Column="2"
+                                        Style="{StaticResource SubTitleLabel}"
+                                        Text="{Binding PenTime}" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+
+                <Button
+                    Grid.Row="1"
+                    BackgroundColor="#d3d3d3"
+                    Clicked="ReturnToLobby"
+                    Style="{StaticResource PopupButton}"
+                    Text="Return to Lobby" />
+
+                <BoxView
+                    Grid.Row="1"
+                    HeightRequest="1"
+                    VerticalOptions="Start"
+                    Color="Black" />
+            </Grid>
+        </Grid>
+    </Border>
+</toolkit:Popup>

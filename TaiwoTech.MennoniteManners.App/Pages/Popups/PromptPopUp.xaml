@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="TaiwoTech.MennoniteManners.App.Pages.Popups.PromptPopUp"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="clr-namespace:CommunityToolkit.Maui.Views;assembly=CommunityToolkit.Maui"
+    HorizontalOptions="Center"
+    VerticalOptions="Center"
+    Color="Transparent">
+    <Border
+        Padding="15"
+        BackgroundColor="#d3d3d3"
+        StrokeThickness="5">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="20" />
+        </Border.StrokeShape>
+        <Border.Stroke>
+            <SolidColorBrush Color="Black" />
+        </Border.Stroke>
+        <Grid
+            Padding="5"
+            BackgroundColor="Transparent"
+            RowSpacing="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+
+            <VerticalStackLayout
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center"
+                Spacing="10">
+                <Label x:Name="Header" Style="{StaticResource PopupTitleLabel}" />
+                <Label x:Name="Prompt" Style="{StaticResource PopupSubTitleLabel}" />
+            </VerticalStackLayout>
+
+            <Border
+                x:Name="MainEntryBorder"
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BackgroundColor="White">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="10" />
+                </Border.StrokeShape>
+                <Entry
+                    x:Name="MainEntry"
+                    BackgroundColor="White"
+                    Completed="RemoveChatFocus"
+                    HorizontalTextAlignment="Center"
+                    IsSpellCheckEnabled="False"
+                    IsTextPredictionEnabled="False"
+                    Keyboard="Text"
+                    MaxLength="10"
+                    ReturnType="Done"
+                    TextColor="Black"
+                    VerticalOptions="Center"
+                    VerticalTextAlignment="Center" />
+            </Border>
+
+            <BoxView
+                x:Name="HorizontalBoxView"
+                Grid.Row="3"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="0,10,0,0"
+                HeightRequest="1"
+                VerticalOptions="Start"
+                Color="Black" />
+            <BoxView
+                x:Name="VerticalBoxView"
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="0,10,0,0"
+                HorizontalOptions="Start"
+                WidthRequest="1"
+                Color="Black" />
+            <Button
+                x:Name="CancelButton"
+                Grid.Row="3"
+                Grid.Column="0"
+                Clicked="CancelButtonClicked"
+                Style="{StaticResource PopupButton}"
+                VerticalOptions="End" />
+            <Button
+                x:Name="SaveButton"
+                Grid.Row="3"
+                Grid.Column="1"
+                Clicked="SaveButtonClicked"
+                Style="{StaticResource PopupButton}"
+                VerticalOptions="End" />
+        </Grid>
+    </Border>
+</toolkit:Popup>

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TaiwoTech.MennoniteManners.App.Pages.PreGame.PreGamePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:constants="clr-namespace:TaiwoTech.MennoniteManners.App.Constants"
+    xmlns:domain="clr-namespace:TaiwoTech.MennoniteManners.App.Domain"
+    xmlns:local="clr-namespace:TaiwoTech.MennoniteManners.App.Pages.PreGame"
+    xmlns:models="clr-namespace:TaiwoTech.MennoniteManners.App.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="PreGamePage"
+    x:DataType="local:PreGameViewModel"
+    BackgroundImageSource="paper_background.jpg">
+
+    <Grid RowSpacing="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <!--  region Top Row  -->
+        <Button
+            Grid.Row="0"
+            Grid.Column="0"
+            Command="{Binding LeaveGameCommand}"
+            Style="{StaticResource LargeButton}"
+            Text="Back" />
+
+        <Label
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalTextAlignment="Center"
+            TextColor="Black"
+            VerticalTextAlignment="Center">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span
+                        FontAttributes="Bold"
+                        FontFamily="OPTI"
+                        FontSize="20"
+                        Text="Game Code: &gt; " />
+                    <Span
+                        FontAttributes="Bold"
+                        FontFamily="MFW"
+                        FontSize="25"
+                        Text="{Binding GameId}"
+                        TextTransform="Uppercase" />
+                    <Span
+                        FontAttributes="Bold"
+                        FontFamily="OPTI"
+                        FontSize="20"
+                        Text=" &lt;" />
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+
+        <Button
+            Grid.Row="0"
+            Grid.Column="2"
+            Command="{Binding StartGameCommand}"
+            IsVisible="{Binding IsHost}"
+            Style="{StaticResource LargeButton}"
+            Text="Play" />
+
+        <!--  endregion  -->
+
+        <!--  region middle Row  -->
+        <CollectionView
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="0,15"
+            ItemsSource="{Binding Participants}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.Header>
+                <StackLayout>
+                    <Label
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Style="{StaticResource TitleLabel}"
+                        Text="Lobby:" />
+                </StackLayout>
+            </CollectionView.Header>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="domain:DomainTypeString">
+                    <Label
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        TextColor="Black">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontFamily="OPTI"
+                                    FontSize="22"
+                                    Text="&gt; " />
+                                <Span
+                                    FontAttributes="Bold"
+                                    FontFamily="OPTI"
+                                    FontSize="22"
+                                    Text="{Binding .}" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <CollectionView
+            x:Name="ChatCollectionView"
+            Grid.Row="1"
+            Grid.Column="1"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding ChatMessages}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="15" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:ChatMessageDto">
+                    <Grid>
+                        <!--  It is not a system message  -->
+                        <StackLayout IsVisible="{Binding IsSystemMessage, Converter={toolkit:InvertedBoolConverter}}">
+                            <StackLayout
+                                Margin="10,0"
+                                IsVisible="{Binding IsOwnMessage}"
+                                Spacing="0">
+                                <Label
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource ChatHeaderLabel}"
+                                    Text="{Binding UserName}" />
+                                <Label
+                                    HorizontalOptions="End"
+                                    Style="{StaticResource ChatMessageLabel}"
+                                    Text="{Binding Message}" />
+                            </StackLayout>
+
+                            <StackLayout
+                                Margin="10,0"
+                                IsVisible="{Binding IsOwnMessage, Converter={toolkit:InvertedBoolConverter}}"
+                                Spacing="0">
+                                <Label
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource ChatHeaderLabel}"
+                                    Text="{Binding UserName}" />
+                                <Label
+                                    HorizontalOptions="Start"
+                                    Style="{StaticResource ChatMessageLabel}"
+                                    Text="{Binding Message}" />
+                            </StackLayout>
+                        </StackLayout>
+
+                        <!--  It is a system message  -->
+                        <StackLayout IsVisible="{Binding IsSystemMessage}">
+                            <StackLayout Margin="10,0" Spacing="0">
+                                <Label
+                                    FontSize="16"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Message}"
+                                    TextColor="Red"
+                                    VerticalTextAlignment="Start" />
+                            </StackLayout>
+                        </StackLayout>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <!--  endregion  -->
+
+        <!--  region Bottom Row  -->
+        <Button
+            Grid.Row="2"
+            Grid.Column="0"
+            Command="{Binding ShowOptionsCommand}"
+            IsVisible="{Binding IsHost}"
+            Style="{StaticResource IconButton}"
+            Text="Settings">
+            <Button.ImageSource>
+                <FontImageSource
+                    FontFamily="IconFont"
+                    Glyph="{x:Static constants:IconFonts.CogOutline}"
+                    Size="25"
+                    Color="Black" />
+            </Button.ImageSource>
+        </Button>
+
+        <Grid
+            x:Name="EntryContainer"
+            Grid.Row="2"
+            Grid.Column="1"
+            Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="80" />
+            </Grid.ColumnDefinitions>
+
+            <Entry
+                x:Name="ChatEntry"
+                Grid.Column="0"
+                FontFamily="OPTI"
+                FontSize="20"
+                Placeholder="Enter text..."
+                PlaceholderColor="Grey"
+                ReturnCommand="{Binding RemoveChatFocusCommand}"
+                TextColor="Black" />
+
+            <BoxView
+                Grid.Column="1"
+                HorizontalOptions="Start"
+                WidthRequest="3" />
+            <Button
+                Grid.Column="1"
+                Command="{Binding SendMessageCommand}"
+                CommandParameter="{Binding Source={x:Reference ChatEntry}, Path=Text}"
+                Style="{StaticResource PopupButton}"
+                Text="SEND" />
+        </Grid>
+        <!--  endregion  -->
+
+        <!--  region dividers  -->
+        <BoxView
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            HeightRequest="3"
+            VerticalOptions="End"
+            Color="Black" />
+        <BoxView
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            Grid.Column="0"
+            HorizontalOptions="End"
+            WidthRequest="3"
+            Color="Black" />
+        <BoxView
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            HeightRequest="3"
+            VerticalOptions="Start"
+            Color="Black" />
+        <BoxView
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            WidthRequest="3"
+            Color="Black" />
+        <!--  endregion  -->
+    </Grid>
+</ContentPage>

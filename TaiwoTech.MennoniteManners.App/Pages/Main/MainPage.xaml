@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:TaiwoTech.MennoniteManners.App.Pages.Main"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="TaiwoTech.MennoniteManners.App.Pages.Main.MainPage"
+             x:DataType="local:MainPageViewModel"
+             BackgroundImageSource="paper_background.jpg">
+
+    <Grid BackgroundColor="Transparent" Padding="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="20*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="6*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="1" Grid.Row="0" Style="{StaticResource HeaderLabel}" Text="Mennonite Manners" />
+
+        <ActivityIndicator Grid.Column="1" Grid.Row="1" 
+                           Color="Black"
+                           IsRunning="{Binding IsBusy}" />
+
+        <VerticalStackLayout Grid.Column="1" Grid.Row="1"
+                             Spacing="10"
+                             Padding="0"
+                             VerticalOptions="Fill"
+                             BackgroundColor="Transparent"
+                             IsVisible="{Binding IsBusy, Converter={toolkit:InvertedBoolConverter}}">
+
+            <Button Style="{StaticResource LargeButton}"
+                Text="{Binding UserName}"
+                Command="{Binding ChangeNameCommand}" />
+
+            <Button Style="{StaticResource LargeButton}"
+                Text="&lt; Start Game &gt;"
+                Command="{Binding HostNewGameCommand}"/>
+
+            <Button Style="{StaticResource LargeButton}"
+                Text="&lt; Join Game &gt;"
+                Command="{Binding JoinGameCommand}"/>
+
+            <!--<Button Style="{StaticResource LargeButton}"
+                    Text="&lt; Sound &gt;"
+                    Command="{Binding ToggleSoundCommand}"/>-->
+
+        </VerticalStackLayout>
+
+        <Image Grid.Column="1" Grid.Row="2" 
+               HorizontalOptions="{OnPlatform Android=End, iOS=Center}"
+               Source="buymecoffee">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding BuyMeADrinkCommand}" />
+            </Image.GestureRecognizers>
+        </Image>
+
+    </Grid>
+</ContentPage>

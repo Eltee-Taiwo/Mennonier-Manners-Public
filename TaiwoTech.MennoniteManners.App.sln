@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaiwoTech.MennoniteManners.App", "TaiwoTech.MennoniteManners.App\TaiwoTech.MennoniteManners.App.csproj", "{7E5EC040-D8D2-4892-8416-A445717D073A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RelevantAPIFiles", "RelevantAPIFiles\RelevantAPIFiles.csproj", "{35012E26-A9D7-44EA-8805-15BB8699765B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7E5EC040-D8D2-4892-8416-A445717D073A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E5EC040-D8D2-4892-8416-A445717D073A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E5EC040-D8D2-4892-8416-A445717D073A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7E5EC040-D8D2-4892-8416-A445717D073A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E5EC040-D8D2-4892-8416-A445717D073A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E5EC040-D8D2-4892-8416-A445717D073A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{35012E26-A9D7-44EA-8805-15BB8699765B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35012E26-A9D7-44EA-8805-15BB8699765B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35012E26-A9D7-44EA-8805-15BB8699765B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35012E26-A9D7-44EA-8805-15BB8699765B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F9389D4-CA1E-4B04-9785-18DAC28B57AE}
+	EndGlobalSection
+EndGlobal
